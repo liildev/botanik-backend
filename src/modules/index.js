@@ -1,7 +1,17 @@
-const auth = require("./admin/router.js");
-const categories = require("./categories/router.js");
-const news = require("./news/router.js");
-const products = require("./products/router.js");
-const banners = require("./banners/router.js");
+const router = require('express').Router()
+const authRouter = require("./auth/router.js");
+const usersRouter = require("./users/router.js");
+const postsRouter = require("./posts/router.js");
+const commentsRouter = require("./comments/router.js");
+const profileRouter = require("./profile/router.js");
 
-module.exports = [auth, categories, news, products, banners];
+
+
+
+router.use("/auth", authRouter);
+router.use("/users", usersRouter);
+router.use("/posts", postsRouter);
+router.use("/comments", commentsRouter);
+router.use('/profile', profileRouter);
+
+module.exports = router;

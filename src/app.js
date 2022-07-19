@@ -1,15 +1,21 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const path = require("path");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'uploads')))
-app.use(express.json());
-app.use(cors());
+// Upload
+app.use(express.static(require("path").join(__dirname, "uploads")));
 
-app.use(require('./middlewares/authorization.js'))
-app.use(require("./modules/index.js"));
+// Req.body
+app.use(express.json());
+
+// Cors
+app.use(require("cors")());
+
+app.use(require("./middlewares/authorization.js"));
+app.use("/api", require("./modules/index.js"));
+
+// Error processing
+app.use(require("./middlewares/errorHandling.middleware.js"));
 
 app.listen(process.env.PORT, () => console.log(`*${process.env.PORT}`));
